@@ -1,47 +1,53 @@
 package q2;
 
-public class BookStore {
-	Book[] books = new Book[10];
-	
-	
-	
-	public void add() {
-		
-	}
+import java.util.Arrays;
+import java.util.Scanner;
+
+class BookStore {
+	private Book[] books = new Book[10];
 	
 	public void sell(String bookTitle, int noOfCopies) {
-		for(int i=0;i<books.length;i++) {
-			if(books[i].getBookTitle() == bookTitle) {
-				int currNoOfCopies = books[i].getNumOfCopies() - noOfCopies;
-				books[i].setNumOfCopies(currNoOfCopies);
-				
-			}
-			else
-			{
-				System.out.println("This book doesn't exist in the Bookstore");
+		Book currBook=null;
+		for(Book book : books) {
+			if(book!=null && book.getBookTitle().equals(bookTitle)) {
+				currBook=book;
+				break;
 			}
 		}
+		if(currBook!=null) {
+				currBook.setNumOfCopies((currBook.getNumOfCopies()-noOfCopies));
+		}else {
+				System.out.println("Book is not found in the bookstore");
+		}
+		
 	}
-	public void order(String isbn, int noOfCopies) throws Exception {
-		for(int i=0; i<books.length; i++) {
+	public void order(String isbn, int noOfCopies){
+		for(Book book : books) {
 			
-			if(books[i].getISBN()==isbn && books[i].getISBN()!=null) {
-				int currNoOfCopies = books[i].getNumOfCopies() + noOfCopies;
-				books[i].setNumOfCopies(currNoOfCopies);
+			if(book!=null && book.getISBN().equals(isbn)) {
+				book.setNumOfCopies(book.getNumOfCopies() + noOfCopies);
+				break;
 				
 			}
-			else {
-				Book newBook = new Book(null,null,isbn,noOfCopies);
-				books[books.length+1]=newBook;
+			else if(book==null) {
+				Scanner sc = new Scanner(System.in);
+				System.out.println("No such book is found");
+				System.out.print("Enter book's title: ");
+				String bookTitle=sc.nextLine();
+				System.out.print("Enter book's author: ");
+				String author=sc.nextLine();
+				books[Arrays.asList(books).indexOf(book)]=new Book(author,bookTitle,isbn,noOfCopies);
+				break;
 				
 			}
 		}
 	}
 	
 	public void display() {
-		// TODO Auto-generated meth,od stub
-		for(int i=0;i<books.length;i++) {
-			books[i].display();
+		System.out.println("Details of all books: ");
+		for(Book book : books) {
+			if(book!=null)
+				book.display();
 		}
 		
 	}
