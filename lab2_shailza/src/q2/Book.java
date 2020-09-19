@@ -1,10 +1,10 @@
 package q2;
 
 public class Book {
-	private String bookTitle="null";
-	private String author="null";
-	private String ISBN="null";
-	private int numOfCopies=0;
+	private String bookTitle;
+	private String author;
+	private String ISBN;
+	private int numOfCopies;
 	public Book(String bookTitle, String author, String iSBN, int numOfCopies) {
 	
 		this.bookTitle = bookTitle;
@@ -44,12 +44,13 @@ public class Book {
 		
 	}
 
-	public void setISBN(String iSBN) {
-		ISBN = iSBN;
+	public void setISBN(String ISBN) {
+		this.ISBN = ISBN;
 	}
 
 	public void display() {
-		System.out.println(bookTitle + " - " + author + " - " + ISBN+ " - " + numOfCopies );
+		System.out.println(this.bookTitle + " - " + this.author + " - " + this.ISBN + " - " + this.numOfCopies );
 	}
 
 }
+
